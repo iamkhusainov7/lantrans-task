@@ -12,7 +12,7 @@
 * connect the branch to master and deploy it to github.
 
 ### Running and usage
-* step 1: in the command line run "composer require".
+* step 1: in the command line run "composer install".
 * step 2: in the command line run "npm install".
 * step 3: in the command line run "npm run dev" to include css dependencies.
 * step 4: in the command line run "npm run dev" to include css dependencies.
