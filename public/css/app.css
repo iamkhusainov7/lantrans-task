@@ -1,0 +1,65 @@
+body {
+  background-color: #1e202b;
+  min-height: 100vh;
+  color: #fff;
+}
+
+.page-header {
+  padding: 20px;
+  font-weight: 100;
+}
+
+.forecast {
+  flex-flow: row wrap;
+  display: flex;
+}
+
+.forecast__item {
+  margin-right: 10px;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .forecast__item {
+    width: 100%;
+  }
+}
+
+.forecast__item.forecast--today {
+  width: 100%;
+  flex: unset;
+}
+
+.forecast__header {
+  color: #bfc1c8;
+}
+
+.forecast__header .location {
+  margin-bottom: 5px;
+}
+
+.forecast__content .degree {
+  display: flex;
+}
+
+.forecast__content .degree__display {
+  font-size: 100px;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .forecast__content .degree {
+    justify-content: space-between;
+  }
+}
+
+.forecast__content .additional-info span {
+  margin-right: 20px;
+}
+
+.forecast__content .additional-info span img {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
