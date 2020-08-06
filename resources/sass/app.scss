@@ -1,1 +1,56 @@
-//
+@import './variables';
+
+body {
+    background-color: $body-background-color;
+    min-height: 100vh;
+    color: $body-color;
+}
+
+.page-header {
+    padding: 20px;
+    font-weight: 100;
+}
+
+.forecast {
+    flex-flow: row wrap;
+    display: flex;
+    &__item {
+        margin-right: 10px;
+        margin-bottom: 20px;
+        flex: 1;
+        @media(max-width: 768px) {
+            width: 100%;
+        }
+    }
+    &__item.forecast--today {
+        width: 100%;
+        flex: unset;
+    }
+    &__header {
+        color: $header-color;
+        .location {
+            margin-bottom: 5px;
+        }
+    }
+    &__content {
+        .degree {
+            display: flex;
+            &__display {
+                font-size: 100px;
+                margin-right: 10px;
+            }
+            @media (max-width: 768px) {
+                justify-content: space-between;
+            }
+        }
+        .additional-info {
+            span {
+                margin-right: 20px;
+                img {
+                    margin-right: 5px;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+}
