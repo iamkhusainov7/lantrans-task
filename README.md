@@ -15,7 +15,7 @@
 * step 1: in the command line run "composer install".
 * step 2: in the command line run "npm install".
 * step 3: in the command line run "npm run dev" to include css dependencies.
-* step 4: set up your .env file. Enter database name, user and password.
+* step 4: set up your .env file. Enter database name, user and password, and set up your own key if you have, by changing variable API_KEY
 * step 5: in the command line run "php artisan migrate".
 * step 6. in the command line run "php artisan db:seed" to fill some fake date to see statistic.
 * step 7. Make sure that your database server is running and in the command line run "php artisan serve" to run the server.
