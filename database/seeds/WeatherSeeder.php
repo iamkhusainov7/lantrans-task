@@ -21,6 +21,7 @@ class WeatherSeeder extends Seeder
             'weather_condition' => "Clear",
             'weather_icon' => '01d',
             'date' =>  "2020-07-30",
+            'city' =>  "Warsaw",
         ]);
 
         DB::table('weathers')->insert([
@@ -32,6 +33,7 @@ class WeatherSeeder extends Seeder
             'weather_condition' => "Clear",
             'weather_icon' => '02d',
             'date' =>  "2020-08-01",
+            'city' =>  "Warsaw",
         ]);
 
         DB::table('weathers')->insert([
@@ -43,6 +45,7 @@ class WeatherSeeder extends Seeder
             'weather_condition' => "Clear",
             'weather_icon' => '03d',
             'date' =>  "2020-08-02",
+            'city' =>  "Warsaw",
         ]);
 
         DB::table('weathers')->insert([
@@ -54,6 +57,7 @@ class WeatherSeeder extends Seeder
             'weather_condition' => "Clear",
             'weather_icon' => '04d',
             'date' =>  "2020-08-3",
+            'city' =>  "Warsaw",
         ]);
 
         DB::table('weathers')->insert([
@@ -65,6 +69,7 @@ class WeatherSeeder extends Seeder
             'weather_condition' => "Clear",
             'weather_icon' => '09d',
             'date' =>  "2020-08-04",
+            'city' =>  "Warsaw",
         ]);
 
         DB::table('weathers')->insert([
@@ -76,6 +81,7 @@ class WeatherSeeder extends Seeder
             'weather_condition' => "Clear",
             'weather_icon' => '10d',
             'date' =>  "2020-08-05",
+            'city' =>  "Warsaw",
         ]);
     }
 }

@@ -6,29 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Http;
 use App\Helpers\ResultFilter;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class Weather extends Model
 {
-    
-    /**
-     * The link to forecast api.
-     *
-     * @var string
-     */
-    protected string $apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=Warsaw&appid=142713817b9b0e01ef47b8f4f178f506";
-
-    /**
-     * API key.
-     * @var string
-     */
-    private const API_KEY = "142713817b9b0e01ef47b8f4f178f506";
-
     /**
      * Target city.
      *
      * @var string
      */
-    private const CITY = "Warsaw";
+    private string $city;
 
     /**
      * Turning default timestamp.
@@ -52,8 +39,17 @@ class Weather extends Model
     protected $fillable = [
         'humidity', 'degree', 'wind_speed', 'wind_direction',
         'weather_description', 'weather_condition', 'weather_icon',
-        'date',
+        'date', 'city'
     ];
+
+    /**
+     * This method sets the city, which wheather should be retreived
+     */
+    public function setCity(string $city)
+    {
+        $this->city = $city;
+        return $this;
+    }
 
     /**
      * This method sends request through API and retreives current weather
@@ -61,9 +57,22 @@ class Weather extends Model
      */
     public function getWeather()
     {
-        $result = Http::get($this->apiUrl, [
-            'q' => self::CITY,
-            'appid' => self::API_KEY,
+        $apiLink = env('API_RESOURCE', false);
+
+        if (!$apiLink) {
+            throw new \Exception('Api link is not specified');
+        } 
+
+        $apiKey = env('API_KEY', false);
+
+        if (!$apiKey) {
+            throw new \Exception('Api key is not specified');
+        }
+
+        $result = Http::get($apiLink, [
+            'q' => $this->city,
+            'appid' => $apiKey,
+            'units' => 'metric'
         ])->json();
 
         $this->result = ResultFilter::filterData($result);
