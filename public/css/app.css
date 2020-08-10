@@ -9,6 +9,26 @@ body {
   font-weight: 100;
 }
 
+.preloader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader-status {
+  width: 128px;
+  height: 128px;
+  background: url(/images/preloader.gif?a8c98ef9a57c815f287ac8b56d0d65b9);
+  z-index: 9999;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .forecast {
   flex-flow: row wrap;
   display: flex;
@@ -61,5 +81,6 @@ body {
 .forecast__content .additional-info span img {
   margin-right: 5px;
   vertical-align: middle;
+  max-width: 21px;
 }
 

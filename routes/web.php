@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', "WeatherController@index");
+Route::get('/get-current-wheater/{cityName}', "WeatherController@retreiveWheather")->middleware('web');

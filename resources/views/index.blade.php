@@ -7,11 +7,16 @@
     <title>Forecast - Warsaw</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/app.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
-<body>
+<body style="overflow: hidden;">
+    <div id="preloader" class="preloader"> 
+        <div id="preloader-status" class="preloader-status"></div>
+    </div> 
+
     <header class="page-header">
-        <h1>Warsaw forecast - last updated time <?= is_int($lastUpdate) ? date("j M, H:i", $lastUpdate) : date("j M, H:i", strtotime($lastUpdate))?></h1>
+        <h1 id="page-header"></h1>
     </header>
     <section class="main-content">
         <div class="container">
@@ -20,28 +25,28 @@
                     <div class="forecast">
                         <div class="forecast__item forecast--today">
                             <header class="forecast__header">
-                                <h5 class="location">Warsaw forecast</h5>
-                                <h6 class="day-of-week"><?= date('j M')?></h6>
+                                <h5 class="location" id="city-name"></h5>
+                                <h6 class="day-of-week" id="date"><?= date('j M') ?></h6>
                             </header>
                             <div class="forecast__content">
                                 <div class="degree">
-                                    <div class="degree__display">{{$data->degree}}<span class="cel">&#8451</span></div>
+                                    <div class="degree__display"><span id="degree"></span><span class="cel">&#8451</span></div>
                                     <div class="forecast-icon">
-                                        <img title="{{$data->weather_description}}" src="./img/{{$data->weather_icon}}.svg" alt="" width="90">
+                                        <img title="" id="wheather-icon" src="" alt="" width="90">
                                     </div>
                                 </div>
                                 <div class="additional-info">
-                                    <span><img src="./img/icon-wind.png" alt="">{{$data->wind_speed}}m/c</span>
-                                    <span><img src="./img/icon-compass.png" alt="">{{$data->wind_direction}}</span>
-                                    <span><img src="./img/icon-hum.png" alt="">{{$data->humidity}}%</span>
+                                    <span id="wind-speed"></span>
+                                    <span id="wind-direction"></span>
+                                    <span id="humidity"></span>
                                 </div>
                             </div>
                         </div>
                         @foreach($lasWeekTemp as $weather)
                         <div class="forecast__item">
                             <header class="forecast__header">
-                                <h5 class="location">Warsaw forecast</h5>
-                                <h6 class="day-of-week"><?= date('j M', strtotime($weather->date))?></h6>
+                                <h5 class="location">{{$weather->city}}</h5>
+                                <h6 class="day-of-week"><?= date('j M', strtotime($weather->date)) ?></h6>
                             </header>
                             <div class="forecast__content">
                                 <div class="degree">
@@ -64,4 +69,6 @@
         </div>
     </section>
 </body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="./js/app.js"></script>
 </html>

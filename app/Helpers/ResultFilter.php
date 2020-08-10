@@ -4,17 +4,6 @@ namespace App\Helpers;
 
 class ResultFilter
 {
-
-    /**
-     * This function converts kelvin degree to celcius.
-     *
-     * @return int
-     */
-    public static function convertToCelsius($kelvin): int
-    {
-        return round($kelvin - 273.15);
-    }
-
     /**
      * This function prepares proper array of values to be inserted in db.
      *
@@ -24,7 +13,7 @@ class ResultFilter
     {
         $icon = $object["weather"][0]["icon"];
         return [
-            "degree" => self::convertToCelsius($object["main"]["temp_max"]),
+            "degree" => round($object["main"]["temp"]),
             "humidity" => $object["main"]["humidity"],
             "wind_speed" => $object["wind"]["speed"],
             "wind_direction" => self::convertToCompasDirection($object["wind"]["deg"]),
@@ -32,6 +21,7 @@ class ResultFilter
             "weather_condition" => $object["weather"][0]["main"],
             "weather_icon" => mb_substr($icon, 0, mb_strlen($icon) - 1) . 'd',
             "date" => date('Y-m-d'),
+            "city" => $object["name"],
         ];
     }
 
