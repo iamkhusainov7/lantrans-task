@@ -19332,6 +19332,43 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+sendRequest(); //send request to the server
+
+$(document).ready(function () {
+  setInterval(sendRequest, 300000); //check for update every 5 minutes
+
+  $('body').delay(50).css({
+    'overflow': 'visible'
+  });
+  $('#preloader').delay(500).fadeOut();
+});
+
+function sendRequest() {
+  $.ajax({
+    type: "GET",
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    url: "/get-current-wheater/Warsaw",
+    success: function success(data) {
+      console.log(data);
+      $('#page-header').text("".concat(data.city, " forecast - last updated time ").concat(data.lastUpdate));
+      $('#city-name').text(data.city);
+      $('#degree').text(data.data.degree);
+      $('#wheather-icon').attr({
+        src: "./img/".concat(data.data.weather_icon, ".svg"),
+        title: data.data.weather_description
+      });
+      $('#wind-speed').html("<img src=\"./img/icon-wind.png\" alt=\"\"> ".concat(data.data.wind_speed, "m/c"));
+      $('#wind-direction').html("<img src=\"./img/icon-compass.png\" alt=\"\">".concat(data.data.wind_direction));
+      $('#humidity').html("<img src=\"./img/icon-hum.png\" alt=\"\">".concat(data.data.humidity, "%"));
+    },
+    error: function error(e) {
+      alert(e.responseJSON.message);
+    }
+  });
+}
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
