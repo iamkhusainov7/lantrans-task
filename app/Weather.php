@@ -74,7 +74,9 @@ class Weather extends Model
             'appid' => $apiKey,
             'units' => 'metric'
         ])->json();
-
+        if ($result['cod'] !== 200) {
+            throw new \Exception($result['message']);
+        }
         $this->result = ResultFilter::filterData($result);
         return $this;
     }
