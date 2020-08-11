@@ -14,9 +14,7 @@ class WeatherController extends Controller
      */
     public function index()
     {
-        return view('index', [
-            "lasWeekTemp" => Weather::getWeatherLastWeek(),
-        ]);
+        return view('index');
     }
 
     /**
@@ -31,7 +29,7 @@ class WeatherController extends Controller
     }
 
     /**
-     * This method is for ajax requests.
+     * This method is for ajax requests to get current weather of the city
      * @param string $cityName the name of city
      * @return Illuminate\Contracts\Routing\ResponseFactory::json
      */
@@ -44,7 +42,7 @@ class WeatherController extends Controller
                     "data" => json_decode($cacheResult->value),
                     "lastUpdate" => date("j M, H:i", $cacheResult->expiration - 3600),
                     "city" => $cityName,
-                ]);
+                ], 200);
         }
         $todayWeather = new Weather();
         try {
@@ -64,6 +62,24 @@ class WeatherController extends Controller
                 "data" => (object)$todayWeather->result,
                 "lastUpdate" => date("j M, H:i"),
                 "city" => $cityName,
-            ]);
+            ], 200);
+    }
+
+    /**
+     * This method is for ajax requests to get past week weather.
+     * @param string $cityName the name of city
+     * @return Illuminate\Contracts\Routing\ResponseFactory::json
+     */
+    public function retreivePastWeekWheather(string $cityName)
+    {
+        $pastWeek = Weather::getWeatherLastWeek($cityName);
+        $responseCode = 200;
+        if (!$pastWeek) {
+            $responseCode = 204;
+        }
+        return response()
+            ->json([
+                "data" => $pastWeek
+            ], $responseCode);
     }
 }

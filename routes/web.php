@@ -14,4 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', "WeatherController@index");
-Route::get('/get-current-wheater/{cityName}', "WeatherController@retreiveWheather")->middleware('web');
+Route::group(['middleware' => ['web']], function(){
+    Route::get('/get-current-wheater/{cityName}', "WeatherController@retreiveWheather");
+    Route::get('/get-pastweek-wheater/{cityName}', "WeatherController@retreivePastWeekWheather");
+});
+

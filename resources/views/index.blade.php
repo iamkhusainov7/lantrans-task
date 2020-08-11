@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="forecast">
+                    <div id="weather-result" class="forecast">
                         <div class="forecast__item forecast--today">
                             <header class="forecast__header">
                                 <h5 class="location" id="city-name"></h5>
@@ -42,27 +42,6 @@
                                 </div>
                             </div>
                         </div>
-                        @foreach($lasWeekTemp as $weather)
-                        <div class="forecast__item">
-                            <header class="forecast__header">
-                                <h5 class="location">{{$weather->city}}</h5>
-                                <h6 class="day-of-week"><?= date('j M', strtotime($weather->date)) ?></h6>
-                            </header>
-                            <div class="forecast__content">
-                                <div class="degree">
-                                    <div class="degree__display">{{$weather->degree}}<span class="cel">&#8451</span></div>
-                                    <div class="forecast-icon">
-                                        <img title="{{$weather->weather_description}}" src="./img/{{$weather->weather_icon}}.svg" alt="" width="90">
-                                    </div>
-                                </div>
-                                <div class="additional-info">
-                                    <span><img src="./img/icon-wind.png" alt="">{{$weather->wind_speed}}m/c</span>
-                                    <span><img src="./img/icon-compass.png" alt="">{{$weather->wind_direction}}</span>
-                                    <span><img src="./img/icon-hum.png" alt="">{{$weather->humidity}}%</span>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
                     </div>
                 </div>
             </div>
