@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Http;
 use App\Helpers\ResultFilter;
 use Illuminate\Support\Facades\DB;
-use Throwable;
 
 class Weather extends Model
 {
@@ -61,7 +60,7 @@ class Weather extends Model
 
         if (!$apiLink) {
             throw new \Exception('Api link is not specified');
-        } 
+        }
 
         $apiKey = env('API_KEY', false);
 
@@ -81,16 +80,19 @@ class Weather extends Model
         return $this;
     }
 
-     /**
+    /**
      * This function retreives the data for past week.
-     *
+     * @param string $city specified city
      * @return array App\Weather
      */
-    public static function getWeatherLastWeek()
+    public static function getWeatherLastWeek(string $city)
     {
         $date = date('Y-m-d');
         $groupedResult = self::select(DB::raw('MIN(id) as id,MAX(degree) as degree, date'))
-            ->where('date', '<', "$date")
+            ->where([
+                ['date', '<', "$date"],
+                ['city', '=', $city]
+            ])
             ->groupBy(['date'])
             ->orderBy('date');
         $result = self::joinSub($groupedResult, 'result', function ($join) {
